@@ -1,5 +1,5 @@
-from movi_models import MoViNet
-from movi_config import _C
+from movinets import MoViNet
+from movinets.config import _C
 
 class Movinet():
 	def __init__(self, device):
