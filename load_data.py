@@ -61,6 +61,7 @@ def get_testloader(root, num_classes, batch_size, pin_memory=True):
 if __name__ == "__main__":
 
 	transforms = torch.nn.Sequential(
+	T.ConvertImageDtype(torch.float32),
     T.CenterCrop(224),
     T.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
     T.RandomHorizontalFlip(p=0.5),
