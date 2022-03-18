@@ -162,7 +162,7 @@ class Kinetics(Dataset):
 
         video, audio, info, video_idx = self.video_clips.get_clip(idx)
         if not self._legacy:
-            [T,H,W,C] --> [T,C,H,W]
+            # [T,H,W,C] --> [T,C,H,W]
             video = video.permute(0, 3, 1, 2)
         label = self.samples[video_idx][1]
 
