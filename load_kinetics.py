@@ -64,7 +64,7 @@ class Kinetics(Dataset):
         )"""
         #self.transform = transform
 
-    def find_classes(directory: str) -> Tuple[List[str], Dict[str, int]]:
+    def find_classes(directory: str):
 	    """Finds the class folders in a dataset.
 	    See :class:`DatasetFolder` for details.
 	    """
@@ -78,7 +78,7 @@ class Kinetics(Dataset):
         class_to_idx=None,
         extensions=None,
         is_valid_file=None,
-        ) -> List[Tuple[str, int]]:
+        ):
         """Generates a list of samples of a form (path_to_sample, class).
         See :class:`DatasetFolder` for details.
         Note: The class_to_idx parameter is here optional and will use the logic of the ``find_classes`` function
@@ -125,7 +125,7 @@ class Kinetics(Dataset):
     def __len__(self) -> int:
         return len(self.video_list)
 
-    def __getitem__(self, idx: int) -> Tuple[Tensor, Tensor, int]:
+    def __getitem__(self, idx: int):
 
         video_path = self.video_list[idx];
         video = EncodedVideo.from_path(video_path)
