@@ -69,3 +69,6 @@ if __name__ == "__main__":
 
 	data = torchvision.datasets.Kinetics(root='../fake_dset', frames_per_clip=10, num_classes='400', num_workers=8, transform=transforms)
 	data_loader = torch.utils.data.DataLoader(data,batch_size=4,shuffle=True,num_workers=8)
+
+	for i, data in enumerate(data_loader):
+		print(i)
