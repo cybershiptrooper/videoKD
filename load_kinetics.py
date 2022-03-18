@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
         data = Kinetics(root='fake_dset', frames_per_clip='10', num_classes='400', num_workers=8)
         data_loader = torch.utils.data.DataLoader(data,batch_size=4,shuffle=True,num_workers=8)
-        it = iter(data_loader)
-        for x, y in enumerate(train_loader):
+        #it = iter(data_loader)
+        for x, y in enumerate(data_loader):
             print(x.shape, " class= ", y)
 
