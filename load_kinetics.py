@@ -71,7 +71,7 @@ class Kinetics(Dataset):
         self.video_list = [x[0] for x in self.samples]
         self.frames_per_clip = frames_per_clip
         self.video_clips = VideoClips(
-            video_list,
+            self.video_list,
             frames_per_clip,
             step_between_clips,
             frame_rate,
