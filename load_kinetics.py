@@ -146,7 +146,7 @@ class Kinetics(Dataset):
         video_relax=video_tense.unsqueeze(0)
 
         numparts = 5
-        numframes = self.frames_per_clip
+        numframes = int(self.frames_per_clip)
         perpartframes = int(numframes/numparts)
         timesamp = np.random.uniform(0, 1)
         section = int(numparts*timesamp)
