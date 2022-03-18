@@ -43,6 +43,7 @@ def unfold(tensor: torch.Tensor, size: int, step: int, dilation: int = 1) -> tor
     o_stride = tensor.stride(0)
     numel = tensor.numel()
     new_stride = (step * o_stride, dilation * o_stride)
+    print(type(numel), type(dilation), type(size), type(step))
     new_size = ((numel - (dilation * (size - 1) + 1)) // step + 1, size)
     if new_size[0] < 1:
         new_size = (0, size)
