@@ -60,10 +60,10 @@ val_pipeline = [
 if __name__ == "__main__":
 
 	transforms = torch.nn.Sequential(
-    transforms.CenterCrop(224),
-    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-    transforms.RandomHorizontalFlip(p=0.5),
-    transforms.RandomVerticalFlip(p=0.5)
+    T.CenterCrop(224),
+    T.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+    T.RandomHorizontalFlip(p=0.5),
+    T.RandomVerticalFlip(p=0.5)
     )
 
 	data = Kinetics(root='../fake_dset', frames_per_clip=10, num_classes='400', num_workers=8, transform=transforms)
