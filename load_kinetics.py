@@ -84,12 +84,12 @@ class Kinetics(Dataset):
         class_to_idx: Optional[Dict[str, int]] = None,
         extensions: Optional[Union[str, Tuple[str, ...]]] = None,
         is_valid_file: Optional[Callable[[str], bool]] = None,
-    	) -> List[Tuple[str, int]]:
-	    """Generates a list of samples of a form (path_to_sample, class).
-	    See :class:`DatasetFolder` for details.
-	    Note: The class_to_idx parameter is here optional and will use the logic of the ``find_classes`` function
-	    by default.
-	    """
+        ) -> List[Tuple[str, int]]:
+        """Generates a list of samples of a form (path_to_sample, class).
+        See :class:`DatasetFolder` for details.
+        Note: The class_to_idx parameter is here optional and will use the logic of the ``find_classes`` function
+        by default.
+        """
         directory = os.path.expanduser(directory)
 
         if class_to_idx is None:
