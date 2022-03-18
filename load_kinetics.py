@@ -45,8 +45,8 @@ class Kinetics(Dataset):
             self.split = split
 
 
-        self.classes, class_to_idx = find_classes(self.split_folder)
-        self.samples = make_dataset(self.split_folder, class_to_idx, extensions, is_valid_file=None)
+        self.classes, class_to_idx = self.find_classes(self.split_folder)
+        self.samples = self.make_dataset(self.split_folder, class_to_idx, extensions, is_valid_file=None)
         self.video_list = [x[0] for x in self.samples]
         self.frames_per_clip = frames_per_clip
         """self.video_clips = VideoClips(
