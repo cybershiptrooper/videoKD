@@ -41,7 +41,7 @@ class Kinetics(Dataset):
             if download:
                 raise ValueError("Cannot download the videos using legacy_structure.")
         else:
-            self.split_folder = path.join(root, split)
+            self.split_folder = os.path.join(root, split)
             self.split = split
 
 
