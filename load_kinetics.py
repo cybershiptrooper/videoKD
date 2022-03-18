@@ -4,6 +4,7 @@ import shutil
 from torch.utils.data import Dataset
 from pytorchvideo.data.encoded_video import EncodedVideo
 from typing import Any, Callable, cast, Dict, List, Optional, Tuple
+from typing import Union
 
 def has_file_allowed_extension(filename: str, extensions: Union[str, Tuple[str, ...]]) -> bool:
     """Checks if a file is an allowed extension.
