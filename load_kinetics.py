@@ -12,9 +12,9 @@ class Kinetics(Dataset):
         frames_per_clip: int,
         num_classes: str = "400",
         split: str = "train",
-        frame_rate: Optional[int] = None,
+        frame_rate=None,
         step_between_clips: int = 1,
-        transform: Optional[Callable] = None,
+        transform=None,
         extensions: Tuple[str, ...] = ("avi", "mp4"),
         download: bool = False,
         num_download_workers: int = 1,
@@ -75,9 +75,9 @@ class Kinetics(Dataset):
 	    class_to_idx = {cls_name: i for i, cls_name in enumerate(classes)}
 	    return classes, class_to_idx
     def make_dataset(directory: str,
-        class_to_idx: Optional[Dict[str, int]] = None,
-        extensions: Optional[Union[str, Tuple[str, ...]]] = None,
-        is_valid_file: Optional[Callable[[str], bool]] = None,
+        class_to_idx=None,
+        extensions=None,
+        is_valid_file=None,
         ) -> List[Tuple[str, int]]:
         """Generates a list of samples of a form (path_to_sample, class).
         See :class:`DatasetFolder` for details.
