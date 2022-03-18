@@ -1,6 +1,7 @@
 from torch.utils.data import DataLoader, random_split
 import torchvision
 import torchvision.transforms as T
+import torch
 
 def get_trainloader(root, num_classes, batch_size, train_split = 0.9, pin_memory=True):
 	# transforms = 
