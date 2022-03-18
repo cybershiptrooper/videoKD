@@ -25,6 +25,7 @@ def get_testloader(root, num_classes, batch_size, pin_memory=True):
 
 
 #Normalise mean = [0.485, 0.456, 0.406] and std = [0.229, 0.224, 0.225]
+
 train_pipeline = [
     dict(type='DecordInit'),
     dict(type='SampleFrames', clip_len=32, frame_interval=2, num_clips=1),
@@ -57,5 +58,13 @@ val_pipeline = [
 ]
 
 if __name__ == "__main__":
-	data = Kinetics(root='../fake_dset', frames_per_clip=10, num_classes='400', num_workers=8, transform=train_pipeline)
+
+	transforms = torch.nn.Sequential(
+    transforms.CenterCrop(224),
+    transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.RandomVerticalFlip(p=0.5)
+    )
+
+	data = Kinetics(root='../fake_dset', frames_per_clip=10, num_classes='400', num_workers=8, transform=transforms)
 	data_loader = torch.utils.data.DataLoader(data,batch_size=4,shuffle=True,num_workers=8)
