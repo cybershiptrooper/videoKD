@@ -15,7 +15,7 @@ class Kinetics(Dataset):
         frame_rate=None,
         step_between_clips: int = 1,
         transform=None,
-        extensions: Tuple[str, ...] = ("avi", "mp4"),
+        extensions=("avi", "mp4"),
         download: bool = False,
         num_download_workers: int = 1,
         num_workers: int = 1,
