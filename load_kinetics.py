@@ -19,12 +19,6 @@ class Kinetics(Dataset):
         download: bool = False,
         num_download_workers: int = 1,
         num_workers: int = 1,
-        _precomputed_metadata: Optional[Dict[str, Any]] = None,
-        _video_width: int = 0,
-        _video_height: int = 0,
-        _video_min_dimension: int = 0,
-        _audio_samples: int = 0,
-        _audio_channels: int = 0,
         _legacy: bool = False,
     	):
         """
