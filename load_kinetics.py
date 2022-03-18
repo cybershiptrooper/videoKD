@@ -190,4 +190,5 @@ if __name__ == "__main__":
         #it = iter(data_loader)
         for x, y in enumerate(data_loader):
             print(x.shape, " class= ", y)
+            break
 
