@@ -192,7 +192,7 @@ if __name__ == "__main__":
         #				os.mkdir(dir_name+'/train/'+folder_name)
         #		shutil.move(dir_name+'/'+f, dir_name+'/train/'+folder_name+'/'+f)
 
-        data = Kinetics(root='../fake_dset', frames_per_clip='10', num_classes='400', num_workers=8)
+        data = Kinetics(root='../fake_dset', frames_per_clip=10, num_classes='400', num_workers=8)
         data_loader = torch.utils.data.DataLoader(data,batch_size=4,shuffle=True,num_workers=8)
         #it = iter(data_loader)
         for x, y, z in enumerate(data_loader):
