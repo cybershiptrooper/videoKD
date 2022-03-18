@@ -154,9 +154,9 @@ class Kinetics(Dataset):
         sampled_part = video_relax[:, :, section*perpartframes:(section+1)*perpartframes, :, :]
 
         #video, audio, info, video_idx = self.video_clips.get_clip(idx)
-        if not self._legacy:
+        #if not self._legacy:
             # [T,H,W,C] --> [T,C,H,W]
-            video = video.permute(0, 3, 1, 2)
+        #    video = video.permute(0, 3, 1, 2)
         label = self.samples[idx][1]
 
         #if self.transform is not None:
