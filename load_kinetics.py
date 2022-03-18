@@ -1,7 +1,8 @@
 import os
 import shutil
-from vision.torchvision.datasets.video_utils import VideoClips
+#from vision.torchvision.datasets.video_utils import VideoClips
 from torch.utils.data import Dataset
+from pytorchvideo.data.encoded_video import EncodedVideo
 
 class Kinetics(Dataset):
     """Face Landmarks dataset."""
@@ -52,8 +53,9 @@ class Kinetics(Dataset):
 
         self.classes, class_to_idx = find_classes(self.split_folder)
         self.samples = make_dataset(self.split_folder, class_to_idx, extensions, is_valid_file=None)
-        video_list = [x[0] for x in self.samples]
-        self.video_clips = VideoClips(
+        self.video_list = [x[0] for x in self.samples]
+        self.frames_per_clip = frames_per_clip
+        """self.video_clips = VideoClips(
             video_list,
             frames_per_clip,
             step_between_clips,
@@ -65,7 +67,7 @@ class Kinetics(Dataset):
             _video_min_dimension=_video_min_dimension,
             _audio_samples=_audio_samples,
             _audio_channels=_audio_channels,
-        )
+        )"""
         #self.transform = transform
 
     def find_classes(directory: str) -> Tuple[List[str], Dict[str, int]]:
@@ -133,23 +135,33 @@ class Kinetics(Dataset):
 	        raise FileNotFoundError(msg)
         return instances
 
-	def metadata(self) -> Dict[str, Any]:
-        return self.video_clips.metadata
-
     def __len__(self) -> int:
-        return self.video_clips.num_clips()
+        return len(self.video_list)
 
     def __getitem__(self, idx: int) -> Tuple[Tensor, Tensor, int]:
-        video, audio, info, video_idx = self.video_clips.get_clip(idx)
+
+        video_path = self.video_list[idx];
+        video = EncodedVideo.from_path(video_path)
+        video_tense=video.get_clip(0, int(video.duration))['video']
+        video_relax=video_tense.unsqueeze(0)
+
+        numparts = 5
+        numframes = self.frames_per_clip
+        perpartframes = int(numframes/numparts)
+        timesamp = np.random.uniform(0, 1)
+        section = int(numparts*timesamp)
+        sampled_part = video_relax[:, :, section*perpartframes:(section+1)*perpartframes, :, :]
+
+        #video, audio, info, video_idx = self.video_clips.get_clip(idx)
         if not self._legacy:
             # [T,H,W,C] --> [T,C,H,W]
             video = video.permute(0, 3, 1, 2)
-        label = self.samples[video_idx][1]
+        label = self.samples[idx][1]
 
-        if self.transform is not None:
-            video = self.transform(video)
+        #if self.transform is not None:
+        #    video = self.transform(video)
 
-        return video, audio, label
+        return sampled_part, label
 
 
 if __name__ == "__main__":
