@@ -80,12 +80,11 @@ class Kinetics(Dataset):
 
 	    class_to_idx = {cls_name: i for i, cls_name in enumerate(classes)}
 	    return classes, class_to_idx
-    def make_dataset(
-	    directory: str,
-	    class_to_idx: Optional[Dict[str, int]] = None,
-	    extensions: Optional[Union[str, Tuple[str, ...]]] = None,
-	    is_valid_file: Optional[Callable[[str], bool]] = None,
-		) -> List[Tuple[str, int]]:
+    def make_dataset(directory: str,
+            	    class_to_idx: Optional[Dict[str, int]] = None,
+            	    extensions: Optional[Union[str, Tuple[str, ...]]] = None,
+            	    is_valid_file: Optional[Callable[[str], bool]] = None,
+            		) -> List[Tuple[str, int]]:
 	    """Generates a list of samples of a form (path_to_sample, class).
 	    See :class:`DatasetFolder` for details.
 	    Note: The class_to_idx parameter is here optional and will use the logic of the ``find_classes`` function
@@ -128,12 +127,13 @@ class Kinetics(Dataset):
 	                        available_classes.add(target_class)
 
 	    empty_classes = set(class_to_idx.keys()) - available_classes
-	    if empty_classes:
+        return instances
+	    """if empty_classes:
 	        msg = f"Found no valid file for the classes {', '.join(sorted(empty_classes))}. "
 	        if extensions is not None:
 	            msg += f"Supported extensions are: {extensions if isinstance(extensions, str) else ', '.join(extensions)}"
-	        raise FileNotFoundError(msg)
-        return instances
+	        raise FileNotFoundError(msg)"""
+        
 
     def __len__(self) -> int:
         return len(self.video_list)
