@@ -184,3 +184,4 @@ if __name__ == "__main__":
 		#		shutil.move(dir_name+'/'+f, dir_name+'/train/'+folder_name+'/'+f)
 
 		dataloader = Kinetics(root='fake_dset', frames_per_clip='10', num_classes='400', num_workers=8)
+        print(dataloader)
