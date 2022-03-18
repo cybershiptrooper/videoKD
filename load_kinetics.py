@@ -164,24 +164,23 @@ class Kinetics(Dataset):
 
 
 if __name__ == "__main__":
-		"""dir_name = "dataset"
-		fake_dir = "fake_dst"
-		files = os.listdir(dir_name+'/train/');
-		for subdir, dirs, files in os.walk(dir_name+'/train/'):
-			for d in dirs:
-				if(not os.path.isdir(fake_dir+'/train/'+d)):
-					os.mkdir(fake_dir+'/train/'+d)
-				for f in os.listdir(dir_name+'/train/'+d):
-					shutil.copy(dir_name+'/train/'+d+'/'+f, fake_dir+'/train/'+d+'/'+f)
-					break;"""
+        """dir_name = "dataset"
+        fake_dir = "fake_dst"
+        files = os.listdir(dir_name+'/train/');
+        for subdir, dirs, files in os.walk(dir_name+'/train/'):
+        	for d in dirs:
+        		if(not os.path.isdir(fake_dir+'/train/'+d)):
+        			os.mkdir(fake_dir+'/train/'+d)
+        		for f in os.listdir(dir_name+'/train/'+d):
+        			shutil.copy(dir_name+'/train/'+d+'/'+f, fake_dir+'/train/'+d+'/'+f)
+        			break;"""
 
 
-		# if(not os.path.isdir(dir_name+'/train/')):os.mkdir(dir_name+'/train/')
-		#for f in files:
-		#		folder_name = f.split('_')[0]
-		#		if os.path.isdir(dir_name+'/train/'+folder_name) == False:
-		#				os.mkdir(dir_name+'/train/'+folder_name)
-		#		shutil.move(dir_name+'/'+f, dir_name+'/train/'+folder_name+'/'+f)
+        # if(not os.path.isdir(dir_name+'/train/')):os.mkdir(dir_name+'/train/')
+        #for f in files:
+        #		folder_name = f.split('_')[0]
+        #		if os.path.isdir(dir_name+'/train/'+folder_name) == False:
+        #				os.mkdir(dir_name+'/train/'+folder_name)
+        #		shutil.move(dir_name+'/'+f, dir_name+'/train/'+folder_name+'/'+f)
 
-		dataloader = Kinetics(root='fake_dset', frames_per_clip='10', num_classes='400', num_workers=8)
-        print(dataloader)
+        dataloader = Kinetics(root='fake_dset', frames_per_clip='10', num_classes='400', num_workers=8)
