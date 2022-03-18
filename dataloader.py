@@ -5,7 +5,7 @@ import torchvision.transforms as T
 def get_trainloader(root, num_classes, batch_size, train_split = 0.9, pin_memory=True):
 	# transforms = 
 	dataset = torchvision.datasets.Kinetics(
-		root=root, frames_per_clip='10', num_classes=str(num_classes))
+		root=root, frames_per_clip='10', num_classes=str(num_classes), num_workers=8)
 	
 	train_set, val_set = random_split(dataset,[int(split*len(trainset)), int((1-split)*len(trainset)) ])
 	
@@ -18,7 +18,7 @@ def get_trainloader(root, num_classes, batch_size, train_split = 0.9, pin_memory
 
 def get_testloader(root, num_classes, batch_size, pin_memory=True):
 	dataset = torchvision.datasets.Kinetics(
-		root=root, frames_per_clip='10', num_classes=str(num_classes))
+		root=root, frames_per_clip='10', num_classes=str(num_classes), num_workers=8)
 	loader = DataLoader(dataset, 
 		batch_size=batch_size, shuffle=False, num_workers=8, drop_last=True, pin_memory=pin_memory)
 	return loader
