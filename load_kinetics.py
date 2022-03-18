@@ -7,6 +7,7 @@ from typing import Any, Callable, cast, Dict, List, Optional, Tuple
 from typing import Union
 import torch
 import numpy as np
+from video_utils import VideoClips
 
 def has_file_allowed_extension(filename: str, extensions: Union[str, Tuple[str, ...]]) -> bool:
     """Checks if a file is an allowed extension.
@@ -33,6 +34,12 @@ class Kinetics(Dataset):
         download: bool = False,
         num_download_workers: int = 1,
         num_workers: int = 1,
+        _precomputed_metadata: Optional[Dict[str, Any]] = None,
+        _video_width: int = 0,
+        _video_height: int = 0,
+        _video_min_dimension: int = 0,
+        _audio_samples: int = 0,
+        _audio_channels: int = 0,
         _legacy: bool = False,
     	):
         """
@@ -63,7 +70,7 @@ class Kinetics(Dataset):
         self.samples = self.make_dataset(self.split_folder, class_to_idx, extensions, is_valid_file=None)
         self.video_list = [x[0] for x in self.samples]
         self.frames_per_clip = frames_per_clip
-        """self.video_clips = VideoClips(
+        self.video_clips = VideoClips(
             video_list,
             frames_per_clip,
             step_between_clips,
@@ -75,7 +82,7 @@ class Kinetics(Dataset):
             _video_min_dimension=_video_min_dimension,
             _audio_samples=_audio_samples,
             _audio_channels=_audio_channels,
-        )"""
+        )
         #self.transform = transform
 
     def find_classes(self, directory):
@@ -141,28 +148,28 @@ class Kinetics(Dataset):
 
     def __getitem__(self, idx: int):
 
-        video_path = self.video_list[idx];
-        video = EncodedVideo.from_path(video_path)
-        video_tense=video.get_clip(0, int(video.duration))['video']
-        video_relax=video_tense.unsqueeze(0)
+        #video_path = self.video_list[idx];
+        #video = EncodedVideo.from_path(video_path)
+        #video_tense=video.get_clip(0, int(video.duration))['video']
+        #video_relax=video_tense.unsqueeze(0)
 
-        numparts = 5
-        numframes = int(self.frames_per_clip)
-        perpartframes = int(numframes/numparts)
-        timesamp = np.random.uniform(0, 1)
-        section = int(numparts*timesamp)
-        sampled_part = video_relax[:, :, section*perpartframes:(section+1)*perpartframes, :, :]
+        #numparts = 5
+        #numframes = int(self.frames_per_clip)
+        #perpartframes = int(numframes/numparts)
+        #timesamp = np.random.uniform(0, 1)
+        #section = int(numparts*timesamp)
+        #sampled_part = video_relax[:, :, section*perpartframes:(section+1)*perpartframes, :, :]
 
-        #video, audio, info, video_idx = self.video_clips.get_clip(idx)
-        #if not self._legacy:
-            # [T,H,W,C] --> [T,C,H,W]
-        #    video = video.permute(0, 3, 1, 2)
-        label = self.samples[idx][1]
+        video, audio, info, video_idx = self.video_clips.get_clip(idx)
+        if not self._legacy:
+            [T,H,W,C] --> [T,C,H,W]
+            video = video.permute(0, 3, 1, 2)
+        label = self.samples[video_idx][1]
 
         #if self.transform is not None:
         #    video = self.transform(video)
 
-        return sampled_part, label
+        return video, audio, label
 
 
 if __name__ == "__main__":
@@ -188,7 +195,7 @@ if __name__ == "__main__":
         data = Kinetics(root='../fake_dset', frames_per_clip='10', num_classes='400', num_workers=8)
         data_loader = torch.utils.data.DataLoader(data,batch_size=4,shuffle=True,num_workers=8)
         #it = iter(data_loader)
-        for x, y in enumerate(data_loader):
-            print(x.shape, " class= ", y)
+        for x, y, z in enumerate(data_loader):
+            print(x.shape, " class= ", z)
             break
 
