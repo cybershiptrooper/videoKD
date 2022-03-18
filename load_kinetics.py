@@ -131,7 +131,7 @@ class Kinetics(Dataset):
 	        if extensions is not None:
 	            msg += f"Supported extensions are: {extensions if isinstance(extensions, str) else ', '.join(extensions)}"
 	        raise FileNotFoundError(msg)
-		return instances
+        return instances
 
 	def metadata(self) -> Dict[str, Any]:
         return self.video_clips.metadata
