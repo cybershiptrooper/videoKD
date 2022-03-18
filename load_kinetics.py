@@ -64,7 +64,7 @@ class Kinetics(Dataset):
         )"""
         #self.transform = transform
 
-    def find_classes(directory: str):
+    def find_classes(self, directory):
 	    """Finds the class folders in a dataset.
 	    See :class:`DatasetFolder` for details.
 	    """
@@ -74,7 +74,7 @@ class Kinetics(Dataset):
 
 	    class_to_idx = {cls_name: i for i, cls_name in enumerate(classes)}
 	    return classes, class_to_idx
-    def make_dataset(directory: str,
+    def make_dataset(self, directory,
         class_to_idx=None,
         extensions=None,
         is_valid_file=None,
