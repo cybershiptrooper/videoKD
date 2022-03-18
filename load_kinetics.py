@@ -128,13 +128,6 @@ class Kinetics(Dataset):
 
         empty_classes = set(class_to_idx.keys()) - available_classes
         return instances
-	    """if empty_classes:
-	        msg = f"Found no valid file for the classes {', '.join(sorted(empty_classes))}. "
-	        if extensions is not None:
-	            msg += f"Supported extensions are: {extensions if isinstance(extensions, str) else ', '.join(extensions)}"
-	        raise FileNotFoundError(msg)"""
-        
-
     def __len__(self) -> int:
         return len(self.video_list)
 
